@@ -1,7 +1,5 @@
-export const runtime = 'edge';
-
 import connect from '@lib/mongodb'
-import Poll from '@models/Poll2'
+import Poll from '@models/Poll';
 
 export async function POST(req) {
   try {
