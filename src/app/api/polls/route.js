@@ -1,4 +1,4 @@
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 import connect from '../../../lib/mongodb'
 import Poll from '../../../models/Poll'
