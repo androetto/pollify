@@ -9,7 +9,7 @@ export default function CreatePoll() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (!title || !subtitle) {
@@ -33,12 +33,15 @@ export default function CreatePoll() {
         throw new Error('Error al crear la votación')
       }
 
-      // Si la votación se creó exitosamente, puedes redirigir o mostrar un mensaje
       alert('Votación creada con éxito')
       setTitle('')
       setSubtitle('')
-    } catch (error) {
-      setError(error.message)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message) 
+      } else {
+        setError('An unknown error occurred') 
+      }
     } finally {
       setLoading(false)
     }
