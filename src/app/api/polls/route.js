@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import connect from '../../../lib/mongodb'  // Importa la conexión de MongoDB
 import Poll from '../../../models/Poll'
 
