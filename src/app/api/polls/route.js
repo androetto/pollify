@@ -1,6 +1,6 @@
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
-import connect from '../../../lib/mongodb'  // Importa la conexión de MongoDB
+import connect from '../../../lib/mongodb'
 import Poll from '../../../models/Poll'
 
 export async function POST(req) {
