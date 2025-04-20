@@ -11,7 +11,8 @@ let clientPromise: Promise<MongoClient>
 
 // En desarrollo usamos una variable global para evitar múltiples conexiones al hacer hot reload
 declare global {
-  const _mongoClientPromise: Promise<MongoClient>
+  // eslint-disable-next-line no-var
+  var _mongoClientPromise: Promise<MongoClient>
 }
 
 if (process.env.NODE_ENV === 'development') {
