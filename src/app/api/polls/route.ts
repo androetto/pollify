@@ -1,4 +1,3 @@
-// app/api/polls/route.ts
 import { connectDB } from '@/lib/mongodb'
 import Poll from '@/models/Poll'
 
