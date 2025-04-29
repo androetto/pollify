@@ -1,29 +1,15 @@
-import { MongoClient } from 'mongodb'
+import mongoose from 'mongoose'
 
-const uri = process.env.MONGODB_URI
+const MONGODB_URI = process.env.MONGODB_URI || ''
 
-if (!uri) {
-  throw new Error('Por favor define la variable de entorno MONGODB_URI')
+if (!MONGODB_URI) {
+  throw new Error('Por favor define la variable MONGODB_URI en el .env')
 }
 
-let client: MongoClient
-let clientPromise: Promise<MongoClient>
-
-// En desarrollo usamos una variable global para evitar múltiples conexiones al hacer hot reload
-declare global {
-  // eslint-disable-next-line no-var
-  var _mongoClientPromise: Promise<MongoClient>
-}
-
-if (process.env.NODE_ENV === 'development') {
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri)
-    global._mongoClientPromise = client.connect()
+export async function connectDB() {
+  if (mongoose.connection.readyState >= 1) {
+    return
   }
-  clientPromise = global._mongoClientPromise
-} else {
-  client = new MongoClient(uri)
-  clientPromise = client.connect()
-}
 
-export default clientPromise
+  return mongoose.connect(MONGODB_URI)
+}

@@ -48,7 +48,7 @@ export default function CreatePoll() {
   }
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="max-w-300 mx-auto p-6 bg-white shadow-lg">
       <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">Crear Votación</h2>
 
       {error && <div className="mb-4 text-red-500">{error}</div>}
@@ -63,7 +63,7 @@ export default function CreatePoll() {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             placeholder="Ingrese el título de la votación"
             required
           />
@@ -78,7 +78,7 @@ export default function CreatePoll() {
             id="subtitle"
             value={subtitle}
             onChange={(e) => setSubtitle(e.target.value)}
-            className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             placeholder="Ingrese el subtítulo de la votación"
             required
           />

@@ -1,6 +1,8 @@
-import clientPromise from '@/lib/mongodb'
+// app/api/polls/route.ts
+import { connectDB } from '@/lib/mongodb'
+import Poll from '@/models/Poll'
 
-export const runtime = 'nodejs';
+export const runtime = 'nodejs'
 
 export async function POST(req: Request) {
   try {
@@ -10,19 +12,14 @@ export async function POST(req: Request) {
       return new Response('Title and subtitle are required', { status: 400 })
     }
 
-    const client = await clientPromise // ✅ Esperamos a que se conecte
-    const db = client.db()             // Ahora sí usamos .db()
-    const pollsCollection = db.collection('polls')
+    await connectDB()
 
-    const newPoll = {
+    const newPoll = await Poll.create({
       title,
       description: subtitle,
-      createdAt: new Date(),
-    }
+    })
 
-    await pollsCollection.insertOne(newPoll)
-
-    return new Response(JSON.stringify({ message: 'Poll created successfully' }), {
+    return new Response(JSON.stringify({ message: 'Poll created successfully', id: newPoll._id }), {
       status: 201,
     })
   } catch (error) {
