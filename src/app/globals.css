@@ -13,42 +13,12 @@
   --font-mono: var(--font-geist-mono, monospace);
 }
 
-/*
-🧊 PALETA ALTERNATIVA 1 (clara y minimalista)*/
- /* :root {
-  --color-background: #ffffff;
-  --color-foreground: #1f2937;
-  --color-foreground-light: #f3f4f6;
-  --color-primary: #3b82f6;
-  --color-primary-light: #93c5fd;
-  --color-secondary: #6b7280;
-
-  --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
-  --font-mono: var(--font-geist-mono, monospace);
-} */
-
-
-/*
-🌙 PALETA ALTERNATIVA 2 (oscura moderna)*/
-/* :root {
-  --color-background: #FAFAFA;
-  --color-foreground: #1F2937;
-  --color-foreground-light: #4B5563;
-  --color-primary: #111111;
-  --color-primary-light: #FACC15;
-  --color-secondary: #4B5563;
-
-  --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
-  --font-mono: var(--font-geist-mono, monospace);
-} */
-
-
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
-    /* --color-background: #09090b;
-    --color-foreground: #f4f4f5; */
+    --color-background: #09090b;
+    --color-foreground: #f4f4f5;
   }
-}
+} */
 
 body {
   background-color: var(--color-background);
