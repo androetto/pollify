@@ -283,7 +283,7 @@ export default function Home() {
       </main>
 
       <footer className="bg-[var(--color-secondary)] text-[var(--color-foreground-light)] text-center py-4">
-        <p>&copy; 2025 Pollify</p>
+        <p>&copy; 2025 Copyright Pollify. All Rights Reserved.</p>
       </footer>
     </div>
   );
