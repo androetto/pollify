@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   experimental: {
     // runtime: 'edge', // Removed as it is not a valid property
   },
+  images: {
+    domains: ['www.flaticon.es'], // Agrega el dominio de flaticon
+  },
 };
 
 export default nextConfig;

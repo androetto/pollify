@@ -13,9 +13,9 @@ export default function CreatePollButton() {
   return (
     <button 
     onClick={handleClick}
-      className="mt-4 px-6 py-3 bg-blue-600 text-white text-xl rounded-lg hover:bg-blue-500 transition"
+      className="bg-[var(--color-foreground)] text-[var(--color-foreground-light)] py-3 px-6 rounded-full text-xl font-semibold hover:bg-[var(--color-foreground)] transition-all duration-300"
     >
-      Crear Votación
+      Comenzar ahora
     </button>
   )
 }

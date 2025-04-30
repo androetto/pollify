@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
+/* 🎨 PALETA ACTIVA (vibrante y moderna) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-background: #f9f5ff;
+  --color-foreground: #111827;
+  --color-foreground-light: #f4f4f5;
+  --color-primary: #7c3aed;
+  --color-primary-light: #c084fc;
+  --color-secondary: #6b7280;
+
+  --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
+  --font-mono: var(--font-geist-mono, monospace);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/*
+🧊 PALETA ALTERNATIVA 1 (clara y minimalista)*/
+ /* :root {
+  --color-background: #ffffff;
+  --color-foreground: #1f2937;
+  --color-foreground-light: #f3f4f6;
+  --color-primary: #3b82f6;
+  --color-primary-light: #93c5fd;
+  --color-secondary: #6b7280;
+
+  --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
+  --font-mono: var(--font-geist-mono, monospace);
+} */
+
+
+/*
+🌙 PALETA ALTERNATIVA 2 (oscura moderna)*/
+/* :root {
+  --color-background: #FAFAFA;
+  --color-foreground: #1F2937;
+  --color-foreground-light: #4B5563;
+  --color-primary: #111111;
+  --color-primary-light: #FACC15;
+  --color-secondary: #4B5563;
+
+  --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
+  --font-mono: var(--font-geist-mono, monospace);
+} */
+
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* --color-background: #09090b;
+    --color-foreground: #f4f4f5; */
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
 }
