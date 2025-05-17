@@ -1,12 +1,18 @@
 "use client";
 
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function CreatePollButton() {
+  const { data: session } = useSession();
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/create");
+    if (!session) {
+      signIn("google", { callbackUrl: "/create" });
+    } else {
+      router.push("/create");
+    }
   };
 
   return (
