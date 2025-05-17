@@ -1,93 +1,104 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
+import { useState } from "react";
 
 type Option = {
-  text: string
-}
+  text: string;
+};
 
 type Question = {
-  text: string
-  options: Option[]
-}
+  text: string;
+  options: Option[];
+};
 
 export default function CreatePoll() {
-  const [title, setTitle] = useState('')
-  const [subtitle, setSubtitle] = useState('')
-  const [questions, setQuestions] = useState<Question[]>([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleAddQuestion = () => {
-    setQuestions([...questions, { text: '', options: [{ text: '' }] }])
-  }
+    setQuestions([...questions, { text: "", options: [{ text: "" }] }]);
+  };
 
   const handleAddOption = (qIndex: number) => {
-    const updated = [...questions]
-    updated[qIndex].options.push({ text: '' })
-    setQuestions(updated)
-  }
+    const updated = [...questions];
+    updated[qIndex].options.push({ text: "" });
+    setQuestions(updated);
+  };
 
   const handleQuestionChange = (qIndex: number, value: string) => {
-    const updated = [...questions]
-    updated[qIndex].text = value
-    setQuestions(updated)
-  }
+    const updated = [...questions];
+    updated[qIndex].text = value;
+    setQuestions(updated);
+  };
 
-  const handleOptionChange = (qIndex: number, oIndex: number, value: string) => {
-    const updated = [...questions]
-    updated[qIndex].options[oIndex].text = value
-    setQuestions(updated)
-  }
+  const handleOptionChange = (
+    qIndex: number,
+    oIndex: number,
+    value: string
+  ) => {
+    const updated = [...questions];
+    updated[qIndex].options[oIndex].text = value;
+    setQuestions(updated);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!title || !subtitle || questions.length === 0) {
-      setError('Complete todos los campos antes de guardar')
-      return
+      setError("Complete todos los campos antes de guardar");
+      return;
     }
 
     for (const q of questions) {
       if (!q.text || q.options.length === 0 || q.options.some((o) => !o.text)) {
-        setError('Todas las preguntas y opciones deben estar completas')
-        return
+        setError("Todas las preguntas y opciones deben estar completas");
+        return;
       }
     }
 
-    setLoading(true)
-    setError('')
+    setLoading(true);
+    setError("");
 
     try {
-      const response = await fetch('/api/polls', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/polls", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, subtitle, questions }),
-      })
+      });
 
-      if (!response.ok) throw new Error('Error al crear la votación')
+      if (!response.ok) throw new Error("Error al crear la votación");
 
-      alert('Votación creada con éxito')
-      setTitle('')
-      setSubtitle('')
-      setQuestions([])
+      alert("Votación creada con éxito");
+      setTitle("");
+      setSubtitle("");
+      setQuestions([]);
     } catch (err) {
-      setError( 'Ocurrió un error desconocido')
+      console.error(err);
+      setError("Ocurrió un error desconocido");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="max-w-3xl mx-auto p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
-      <h1 className="text-3xl font-bold text-[#322A7D] text-center mb-2">Crear Nueva Votación</h1>
-      <p className="text-md text-gray-600 text-center mb-6">Defina el título, subtítulo y las preguntas con sus opciones</p>
+      <h1 className="text-3xl font-bold text-[#322A7D] text-center mb-2">
+        Crear Nueva Votación
+      </h1>
+      <p className="text-md text-gray-600 text-center mb-6">
+        Defina el título, subtítulo y las preguntas con sus opciones
+      </p>
 
       {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
 
       <form onSubmit={handleSubmit}>
         <div className="mb-5">
-          <label className="block text-gray-700 font-semibold mb-2">Título</label>
+          <label className="block text-gray-700 font-semibold mb-2">
+            Título
+          </label>
           <input
             type="text"
             value={title}
@@ -98,7 +109,9 @@ export default function CreatePoll() {
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 font-semibold mb-2">Subtítulo</label>
+          <label className="block text-gray-700 font-semibold mb-2">
+            Subtítulo
+          </label>
           <input
             type="text"
             value={subtitle}
@@ -110,8 +123,13 @@ export default function CreatePoll() {
 
         <div className="space-y-6">
           {questions.map((q, qIndex) => (
-            <div key={qIndex} className="bg-gray-50 p-5 rounded-lg border border-gray-200">
-              <label className="block font-semibold text-gray-700 mb-2">Pregunta {qIndex + 1}</label>
+            <div
+              key={qIndex}
+              className="bg-gray-50 p-5 rounded-lg border border-gray-200"
+            >
+              <label className="block font-semibold text-gray-700 mb-2">
+                Pregunta {qIndex + 1}
+              </label>
               <input
                 type="text"
                 value={q.text}
@@ -125,7 +143,9 @@ export default function CreatePoll() {
                   key={oIndex}
                   type="text"
                   value={opt.text}
-                  onChange={(e) => handleOptionChange(qIndex, oIndex, e.target.value)}
+                  onChange={(e) =>
+                    handleOptionChange(qIndex, oIndex, e.target.value)
+                  }
                   className="w-full mb-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#322A7D]"
                   placeholder={`Opción ${oIndex + 1}`}
                 />
@@ -157,13 +177,13 @@ export default function CreatePoll() {
             type="submit"
             disabled={loading}
             className={`px-6 py-3 text-white font-semibold rounded-lg transition ${
-              loading ? 'bg-gray-400' : 'bg-[#322A7D] hover:bg-[#42389D]'
+              loading ? "bg-gray-400" : "bg-[#322A7D] hover:bg-[#42389D]"
             }`}
           >
-            {loading ? 'Guardando...' : 'Guardar Votación'}
+            {loading ? "Guardando..." : "Guardar Votación"}
           </button>
         </div>
       </form>
     </div>
-  )
+  );
 }
