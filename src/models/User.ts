@@ -7,6 +7,7 @@ export interface IUser extends Document {
   provider: 'google'
   phone?: string
   biometricVerified?: boolean
+  image?: string
   createdAt: Date
 }
 
@@ -16,6 +17,7 @@ const userSchema: Schema<IUser> = new Schema({
   provider: { type: String, enum: ['google'], required: true },
   phone: { type: String },
   biometricVerified: { type: Boolean },
+  image: { type: String },
   createdAt: { type: Date, default: Date.now },
 })
 
