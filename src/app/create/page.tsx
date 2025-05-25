@@ -3,6 +3,7 @@
 import ConfigButton from "@/components/ConfigButton";
 import SettingsPanel from "@/components/SettingsPanel";
 import { IConfiguration, IQuestion } from "@/models/Poll";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const defaultConfig: IConfiguration = {
@@ -20,6 +21,8 @@ const defaultConfig: IConfiguration = {
 };
 
 export default function CreatePoll() {
+    const router = useRouter();
+
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [questions, setQuestions] = useState<IQuestion[]>([]);
@@ -85,10 +88,18 @@ export default function CreatePoll() {
 
       if (!response.ok) throw new Error("Error al crear la votación");
 
-      alert("Votación creada con éxito");
+     
       setTitle("");
       setSubtitle("");
       setQuestions([]);
+
+      if (!response.ok) throw new Error("Error al crear la votación");
+
+      const data = await response.json(); // { id: "pollId" }
+
+      // Redirigir a la página finish con el id del poll
+      router.push(`/finish/${data.poll._id}`);
+
     } catch (err) {
       console.error(err);
       setError("Ocurrió un error desconocido");
