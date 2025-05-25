@@ -1,14 +1,12 @@
-export const dynamic = "force-dynamic";
-
 import { connectDB } from "@/lib/mongodb";
 import Poll, { IOption, IQuestion } from "@/models/Poll";
 import { notFound } from "next/navigation";
 
-interface VotePageProps {
+export default async function VotePage({
+  params,
+}: {
   params: { id: string };
-}
-
-export default async function VotePage({ params }: VotePageProps) {
+}) {
   await connectDB();
   const poll = await Poll.findById(params.id);
   if (!poll) return notFound();
@@ -23,7 +21,11 @@ export default async function VotePage({ params }: VotePageProps) {
       </p>
 
       <form method="post" action="/api/responses">
-        <input type="hidden" name="pollId" value={(poll._id as { toString: () => string }).toString()} />
+        <input
+          type="hidden"
+          name="pollId"
+          value={(poll._id as { toString: () => string }).toString()}
+        />
 
         {poll.questions.map((q: IQuestion, qIndex: number) => (
           <div
@@ -51,15 +53,6 @@ export default async function VotePage({ params }: VotePageProps) {
             ))}
           </div>
         ))}
-
-        {/* <div className="flex justify-center mt-8">
-          <button
-            type="submit"
-            className="px-6 py-3 text-white font-semibold rounded-lg bg-[#322A7D] hover:bg-[#42389D] transition"
-          >
-            Guardar
-          </button>
-        </div> */}
       </form>
     </div>
   );
