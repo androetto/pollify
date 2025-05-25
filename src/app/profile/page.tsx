@@ -16,6 +16,7 @@ export default function ProfilePage() {
   const [phone, setPhone] = useState('')
 
   // Mocked polls data
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [polls, setPolls] = useState<Poll[]>([
     { id: '1', title: 'Encuesta de satisfacción', subtitle: 'Queremos saber tu opinión' },
     { id: '2', title: 'Preferencias de producto', subtitle: 'Elige tus opciones favoritas' },
