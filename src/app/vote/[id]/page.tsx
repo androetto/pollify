@@ -4,9 +4,14 @@ import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-export default async function VotePage({ params }: { params: { id: string } }) {
+interface VotePageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function VotePage({ params }: VotePageProps) {
+  const { id } = await params;
   await connectDB();
-  const poll = await Poll.findById(params.id);
+  const poll = await Poll.findById(id);
   if (!poll) return notFound();
 
   return (
