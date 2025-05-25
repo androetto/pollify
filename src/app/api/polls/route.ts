@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 
     const data = (await request.json()) as CreatePollDTO;
 
-     const user = await getCurrentUser();
+    const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "No autorizado" }, { status: 401 });
     }
@@ -45,13 +45,18 @@ export async function POST(request: Request) {
       }
     }
 
-     const poll = new Poll({
+    const poll = new Poll({
       title,
       subtitle,
-      questions,
       config,
       owner: user._id,
+      questions: questions.map((q) => ({
+        text: q.text,
+        multipleSelection: q.multipleSelection ?? false,
+        options: q.options.map((o) => ({ text: o.text })),
+      })),
     });
+
     await poll.save();
 
     return NextResponse.json(
@@ -59,14 +64,14 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (err) {
-  console.error("Error en POST /api/polls:", err);
+    console.error("Error en POST /api/polls:", err);
 
-  const errorMessage =
-    err instanceof Error ? err.message : "Error desconocido";
+    const errorMessage =
+      err instanceof Error ? err.message : "Error desconocido";
 
-  return NextResponse.json(
-    { error: "Error interno del servidor", details: errorMessage },
-    { status: 500 }
-  );
-}
+    return NextResponse.json(
+      { error: "Error interno del servidor", details: errorMessage },
+      { status: 500 }
+    );
+  }
 }

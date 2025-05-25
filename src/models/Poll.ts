@@ -2,12 +2,10 @@
 import mongoose, { Document, Schema, Model } from 'mongoose'
 
 export interface IOption {
-  _id?: string
   text: string
 }
 
 export interface IQuestion {
-  _id?: string
   text: string
   options: IOption[]
   multipleSelection: boolean
@@ -44,20 +42,17 @@ export interface IPoll extends Document {
 
 const optionSchema = new Schema<IOption>(
   {
-    _id: { type: String },
     text: { type: String, required: true },
-  },
-  { _id: false }
+  }
 )
 
 const questionSchema = new Schema<IQuestion>(
   {
-    _id: { type: String },
     text: { type: String, required: true },
     options: [optionSchema],
     multipleSelection: { type: Boolean, default: false },
   },
-  { _id: false }
+  { _id: true}
 )
 
 const pollSchema = new Schema<IPoll>({
