@@ -26,7 +26,7 @@ export interface IConfiguration {
   monetization: {
     type: 'free' | 'pay_per_vote'
     amountPerVote?: number
-    budget?: number // opcional si no se limita por cantidad
+    budget?: number
   }
   resultVisibility: 'public' | 'private'
   plan: 'free' | 'paid'

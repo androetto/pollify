@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { IUser } from '@/models/User'
 
 export default function ProfilePage() {
   const { data: session } = useSession()
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<IUser>()
 
   useEffect(() => {
     if (session) {

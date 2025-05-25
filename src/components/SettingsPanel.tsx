@@ -14,14 +14,17 @@ export default function SettingsPanel({
   onSave,
 }: Props) {
   // Handler general para campos de primer nivel
-  const handleChange = (field: keyof IConfiguration, value: any) => {
+  const handleChange = <K extends keyof IConfiguration>(
+    field: K,
+    value: IConfiguration[K]
+  ) => {
     onSave({ ...configuration, [field]: value });
   };
 
   // Handler para duración
-  const handleDurationChange = (
-    field: keyof IConfiguration["duration"],
-    value: any
+  const handleDurationChange = <K extends keyof IConfiguration["duration"]>(
+    field: K,
+    value: IConfiguration["duration"][K]
   ) => {
     onSave({
       ...configuration,
@@ -30,9 +33,11 @@ export default function SettingsPanel({
   };
 
   // Handler para monetización
-  const handleMonetizationChange = (
-    field: keyof IConfiguration["monetization"],
-    value: any
+  const handleMonetizationChange = <
+    K extends keyof IConfiguration["monetization"]
+  >(
+    field: K,
+    value: IConfiguration["monetization"][K]
   ) => {
     onSave({
       ...configuration,
@@ -67,7 +72,7 @@ export default function SettingsPanel({
           <h3 className="font-semibold mb-2 text-gray-700">Visibilidad</h3>
           <select
             value={configuration.visibility}
-            onChange={(e) => handleChange("visibility", e.target.value)}
+            onChange={(e) => handleChange("visibility", e.target.value as IConfiguration["visibility"])}
             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#322A7D]"
           >
             <option value="public">Pública</option>
@@ -80,7 +85,7 @@ export default function SettingsPanel({
           <h3 className="font-semibold mb-2 text-gray-700">Duración</h3>
           <select
             value={configuration.duration.type}
-            onChange={(e) => handleDurationChange("type", e.target.value)}
+            onChange={(e) => handleDurationChange("type", e.target.value as "votes" | "date" | "both")}
             className="w-full p-2 border border-gray-300 rounded mb-2 focus:ring-2 focus:ring-[#322A7D]"
           >
             <option value="votes">Por votos</option>
@@ -118,15 +123,15 @@ export default function SettingsPanel({
               <input
                 type="date"
                 value={
-                  configuration.duration.startDate
-                    ? configuration.duration.startDate.split("T")[0]
-                    : ""
-                }
+        configuration.duration.startDate
+          ? new Date(configuration.duration.startDate).toISOString().split("T")[0]
+          : ""
+      }
                 onChange={(e) =>
                   handleDurationChange(
                     "startDate",
                     e.target.value
-                      ? new Date(e.target.value).toISOString()
+                      ? new Date(e.target.value)
                       : undefined
                   )
                 }
@@ -138,16 +143,16 @@ export default function SettingsPanel({
               </label>
               <input
                 type="date"
-                value={
-                  configuration.duration.endDate
-                    ? configuration.duration.endDate.split("T")[0]
-                    : ""
-                }
+                 value={
+        configuration.duration.endDate
+          ? new Date(configuration.duration.endDate).toISOString().split("T")[0]
+          : ""
+      }
                 onChange={(e) =>
                   handleDurationChange(
                     "endDate",
                     e.target.value
-                      ? new Date(e.target.value).toISOString()
+                      ? new Date(e.target.value)
                       : undefined
                   )
                 }
@@ -162,7 +167,7 @@ export default function SettingsPanel({
           <h3 className="font-semibold mb-2 text-gray-700">Seguridad</h3>
           <select
             value={configuration.security}
-            onChange={(e) => handleChange("security", e.target.value)}
+            onChange={(e) => handleChange("security", e.target.value as IConfiguration["security"])}
             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#322A7D]"
           >
             <option value="none">Ninguna</option>
@@ -197,9 +202,7 @@ export default function SettingsPanel({
           <h3 className="font-semibold mb-2 text-gray-700">Monetización</h3>
           <select
             value={configuration.monetization.type}
-            onChange={(e) =>
-              handleMonetizationChange("type", e.target.value)
-            }
+            onChange={(e) => handleMonetizationChange("type", e.target.value as "free" | "pay_per_vote")}
             className="w-full p-2 border border-gray-300 rounded mb-2 focus:ring-2 focus:ring-[#322A7D]"
           >
             <option value="free">Gratis</option>
@@ -254,9 +257,7 @@ export default function SettingsPanel({
           </h3>
           <select
             value={configuration.resultVisibility}
-            onChange={(e) =>
-              handleChange("resultVisibility", e.target.value)
-            }
+            onChange={(e) => handleChange("resultVisibility", e.target.value as IConfiguration["resultVisibility"])}
             className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#322A7D]"
           >
             <option value="public">Públicos</option>
