@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { connectDB } from "@/lib/mongodb";
 import Poll, { IOption, IQuestion } from "@/models/Poll";
 import { notFound } from "next/navigation";

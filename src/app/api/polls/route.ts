@@ -75,3 +75,45 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function GET(request: Request) {
+  await connectDB();
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id");
+  const title = searchParams.get("title");
+
+  if (!id && !title) {
+    return NextResponse.json(
+      { error: "Se requiere id o title" },
+      { status: 400 }
+    );
+  }
+
+  let poll;
+  try {
+    if (id) {
+      poll = await Poll.findById(id);
+    } else if (title) {
+      poll = await Poll.findOne({ title });
+    }
+
+    if (!poll) {
+      return NextResponse.json(
+        { error: "Encuesta no encontrada" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(poll);
+  } catch (err) {
+    console.error("Error en POST /api/polls:", err);
+
+    const errorMessage =
+      err instanceof Error ? err.message : "Error desconocido";
+
+    return NextResponse.json(
+      { error: "Error interno del servidor", details: errorMessage },
+      { status: 500 }
+    );
+  }
+}
