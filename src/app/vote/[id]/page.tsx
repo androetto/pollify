@@ -2,11 +2,9 @@ import { connectDB } from "@/lib/mongodb";
 import Poll, { IOption, IQuestion } from "@/models/Poll";
 import { notFound } from "next/navigation";
 
-export default async function VotePage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export const dynamic = "force-dynamic";
+
+export default async function VotePage({ params }: { params: { id: string } }) {
   await connectDB();
   const poll = await Poll.findById(params.id);
   if (!poll) return notFound();
@@ -16,9 +14,7 @@ export default async function VotePage({
       <h1 className="text-3xl font-bold text-[#322A7D] text-center mb-2">
         {poll.title}
       </h1>
-      <p className="text-md text-gray-600 text-center mb-6">
-        {poll.subtitle}
-      </p>
+      <p className="text-md text-gray-600 text-center mb-6">{poll.subtitle}</p>
 
       <form method="post" action="/api/responses">
         <input
