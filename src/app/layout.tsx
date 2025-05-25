@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionWrapper>
-          <header className="fixed top-4 right-4 z-50">
+          <header className="fixed top-4 left-4 z-50">
             <UserMenu />
           </header>
           {children}

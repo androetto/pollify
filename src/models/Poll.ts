@@ -1,35 +1,48 @@
 // src/models/Poll.ts
 import mongoose, { Document, Schema, Model } from 'mongoose'
 
-export interface IQuestion {
-  _id: string
+export interface IOption {
+  _id?: string
   text: string
-  options: {
-    _id: string
-    text: string
-  }[]
+}
+
+export interface IQuestion {
+  _id?: string
+  text: string
+  options: IOption[]
+  multipleSelection: boolean
+}
+
+export interface IConfiguration {
+  visibility: 'public' | 'private'
+  duration: {
+    type: 'votes' | 'date' | 'both'
+    maxVotes?: number
+    startDate?: Date
+    endDate?: Date
+  }
+  security: 'none' | 'low' | 'medium' | 'high'
+  timeLimitSeconds?: number
+  monetization: {
+    type: 'free' | 'pay_per_vote'
+    amountPerVote?: number
+    budget?: number // opcional si no se limita por cantidad
+  }
+  resultVisibility: 'public' | 'private'
+  plan: 'free' | 'paid'
 }
 
 export interface IPoll extends Document {
   title: string
-  description: string
-  visibility: 'public' | 'private'
-  authentication: 'google' | 'google_sms' | 'google_email' | 'google_biometric'
-  monetization: {
-    type: 'free' | 'pay_per_vote'
-    amountPerVote?: number
-  }
-  limit: {
-    type: 'votes' | 'time' | 'both'
-    maxVotes?: number
-    expiresAt?: Date
-  }
+  subtitle?: string
+  image?: string
   questions: IQuestion[]
-  owner: mongoose.Types.ObjectId // referencia a User
+  config: IConfiguration
+  owner: mongoose.Types.ObjectId
   createdAt: Date
 }
 
-const optionSchema = new Schema(
+const optionSchema = new Schema<IOption>(
   {
     _id: { type: String },
     text: { type: String, required: true },
@@ -37,46 +50,66 @@ const optionSchema = new Schema(
   { _id: false }
 )
 
-const questionSchema = new Schema(
+const questionSchema = new Schema<IQuestion>(
   {
     _id: { type: String },
     text: { type: String, required: true },
     options: [optionSchema],
+    multipleSelection: { type: Boolean, default: false },
   },
   { _id: false }
 )
 
-const pollSchema: Schema<IPoll> = new Schema({
+const pollSchema = new Schema<IPoll>({
   title: { type: String, required: true },
-  description: { type: String, required: true },
-  visibility: { type: String, enum: ['public', 'private'], required: true },
-  authentication: {
-    type: String,
-    enum: ['google', 'google_sms', 'google_email', 'google_biometric'],
-    required: true,
-  },
-  monetization: {
-    type: {
-      type: String,
-      enum: ['free', 'pay_per_vote'],
-      required: true,
-    },
-    amountPerVote: { type: Number },
-  },
-  limit: {
-    type: {
-      type: String,
-      enum: ['votes', 'time', 'both'],
-      required: true,
-    },
-    maxVotes: Number,
-    expiresAt: Date,
-  },
+  subtitle: String,
+  image: String,
   questions: [questionSchema],
+  config: {
+    visibility: {
+      type: String,
+      enum: ['public', 'private'],
+      required: true,
+    },
+    duration: {
+      type: {
+        type: String,
+        enum: ['votes', 'date', 'both'],
+        required: true,
+      },
+      maxVotes: Number,
+      startDate: Date,
+      endDate: Date,
+    },
+    security: {
+      type: String,
+      enum: ['none', 'low', 'medium', 'high'],
+      required: true,
+    },
+    timeLimitSeconds: Number,
+    monetization: {
+      type: {
+        type: String,
+        enum: ['free', 'pay_per_vote'],
+        required: true,
+      },
+      amountPerVote: Number,
+      budget: Number,
+    },
+    resultVisibility: {
+      type: String,
+      enum: ['public', 'private'],
+      required: true,
+    },
+    plan: {
+      type: String,
+      enum: ['free', 'paid'],
+      required: true,
+    },
+  },
   owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   createdAt: { type: Date, default: Date.now },
 })
 
 const Poll: Model<IPoll> = mongoose.models.Poll || mongoose.model<IPoll>('Poll', pollSchema)
-
 export default Poll

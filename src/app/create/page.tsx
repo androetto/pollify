@@ -1,6 +1,23 @@
 "use client";
 
+import ConfigButton from "@/components/ConfigButton";
+import SettingsPanel from "@/components/SettingsPanel";
+import { IConfiguration } from "@/models/Poll";
 import { useState } from "react";
+
+const defaultConfig: IConfiguration = {
+  visibility: "public",
+  duration: {
+    type: "votes",
+  },
+  security: "none",
+  timeLimitSeconds: undefined,
+  monetization: {
+    type: "free",
+  },
+  resultVisibility: "public",
+  plan: "free",
+};
 
 type Option = {
   text: string;
@@ -15,8 +32,11 @@ export default function CreatePoll() {
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [config, setConfig] = useState<IConfiguration>(defaultConfig);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [panelOpen, setPanelOpen] = useState(false);
 
   const handleAddQuestion = () => {
     setQuestions([...questions, { text: "", options: [{ text: "" }] }]);
@@ -66,7 +86,7 @@ export default function CreatePoll() {
       const response = await fetch("/api/polls", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, subtitle, questions }),
+        body: JSON.stringify({ title, subtitle, questions, config }),
       });
 
       if (!response.ok) throw new Error("Error al crear la votación");
@@ -86,7 +106,7 @@ export default function CreatePoll() {
   return (
     <div className="max-w-3xl mx-auto p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
       <h1 className="text-3xl font-bold text-[#322A7D] text-center mb-2">
-        Crear Nueva Votación
+        Pollify
       </h1>
       <p className="text-md text-gray-600 text-center mb-6">
         Defina el título, subtítulo y las preguntas con sus opciones
@@ -184,6 +204,16 @@ export default function CreatePoll() {
           </button>
         </div>
       </form>
+      {/* Icono de la ruedita */}
+      <ConfigButton onClick={() => setPanelOpen(true)} />
+
+      {/* Panel de configuración */}
+      <SettingsPanel
+        isOpen={panelOpen}
+        onClose={() => setPanelOpen(false)}
+        configuration={config}
+        onSave={setConfig}
+      />
     </div>
   );
 }
