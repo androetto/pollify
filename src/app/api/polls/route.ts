@@ -3,12 +3,13 @@ import { NextResponse } from "next/server";
 import Poll from "@/models/Poll";
 import { connectDB } from "@/lib/mongodb";
 import { getCurrentUser } from "@/lib/getCurrentUser";
+import { CreatePollDTO } from "@/interfaces/CreatePollDTO";
 
 export async function POST(request: Request) {
   try {
     await connectDB();
 
-    const data = await request.json();
+    const data = (await request.json()) as CreatePollDTO;
 
      const user = await getCurrentUser();
     if (!user) {
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
         !q.text ||
         !q.options ||
         q.options.length === 0 ||
-        q.options.some((o: any) => !o.text)
+        q.options.some((o) => !o.text)
       ) {
         return NextResponse.json(
           { error: "Todas las preguntas y opciones deben estar completas" },
@@ -58,10 +59,14 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (err) {
-    console.error("Error en POST /api/polls:", err);
-    return NextResponse.json(
-      { error: "Error interno del servidor", details: err.message },
-      { status: 500 }
-    );
-  }
+  console.error("Error en POST /api/polls:", err);
+
+  const errorMessage =
+    err instanceof Error ? err.message : "Error desconocido";
+
+  return NextResponse.json(
+    { error: "Error interno del servidor", details: errorMessage },
+    { status: 500 }
+  );
+}
 }
