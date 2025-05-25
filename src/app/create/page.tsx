@@ -2,7 +2,7 @@
 
 import ConfigButton from "@/components/ConfigButton";
 import SettingsPanel from "@/components/SettingsPanel";
-import { IConfiguration } from "@/models/Poll";
+import { IConfiguration, IQuestion } from "@/models/Poll";
 import { useState } from "react";
 
 const defaultConfig: IConfiguration = {
@@ -19,28 +19,22 @@ const defaultConfig: IConfiguration = {
   plan: "free",
 };
 
-type Option = {
-  text: string;
-};
-
-type Question = {
-  text: string;
-  options: Option[];
-};
-
 export default function CreatePoll() {
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
   const [config, setConfig] = useState<IConfiguration>(defaultConfig);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [panelOpen, setPanelOpen] = useState(false);
 
-  const handleAddQuestion = () => {
-    setQuestions([...questions, { text: "", options: [{ text: "" }] }]);
-  };
+ const handleAddQuestion = () => {
+  setQuestions([
+    ...questions,
+    { text: "", options: [{ text: "" }], multipleSelection: false },
+  ]);
+};
 
   const handleAddOption = (qIndex: number) => {
     const updated = [...questions];
