@@ -1,3 +1,4 @@
+// api/responses/router.ts
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import ResponseModel from "@/models/Response";
@@ -28,13 +29,13 @@ export async function POST(request: Request) {
   }
 
   try {
-    await ResponseModel.create({
+    const newResponse = await ResponseModel.create({
       pollId,
       answers,
       createdAt: new Date(),
     });
 
-    return NextResponse.redirect(new URL("/thanks", request.url));
+  return NextResponse.json({ success: true, responseId: newResponse._id });
   } catch (error) {
     console.error("Error saving response:", error);
 

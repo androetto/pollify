@@ -21,7 +21,7 @@ const defaultConfig: IConfiguration = {
 };
 
 export default function CreatePoll() {
-    const router = useRouter();
+  const router = useRouter();
 
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
