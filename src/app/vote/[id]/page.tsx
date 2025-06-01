@@ -6,7 +6,7 @@ import VoteForm from "./VoteForm";
 export const dynamic = "force-dynamic";
 
 interface VotePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function VotePage({ params }: VotePageProps) {
