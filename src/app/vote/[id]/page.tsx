@@ -44,7 +44,7 @@ export default async function VotePage({ params }: VotePageProps) {
               >
                 <input
                   type="radio"
-                  name={`question-${qIndex}`}
+                  name={`question-${q._id}`}
                   value={opt.text}
                   required
                   className="mr-3 w-5 h-5 text-[#322A7D] focus:ring-[#322A7D]"
@@ -54,6 +54,12 @@ export default async function VotePage({ params }: VotePageProps) {
             ))}
           </div>
         ))}
+        <button
+          type="submit"
+          className="mt-4 px-6 py-2 bg-[#322A7D] text-white rounded hover:bg-[#42389D] w-full"
+        >
+          Enviar
+        </button>
       </form>
     </div>
   );

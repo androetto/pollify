@@ -6,6 +6,7 @@ export interface IOption {
 }
 
 export interface IQuestion {
+  _id: string;
   text: string
   options: IOption[]
   multipleSelection: boolean

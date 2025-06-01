@@ -8,14 +8,18 @@ export async function POST(request: Request) {
   const formData = await request.formData();
 
   const pollId = formData.get("pollId") as string;
-  if (!pollId) return NextResponse.json({ error: "pollId is required" }, { status: 400 });
+  if (!pollId)
+    return NextResponse.json({ error: "pollId is required" }, { status: 400 });
 
-  const answers: { questionIndex: number; answer: string }[] = [];
+  const answers: { questionId: string; options: string[] }[] = [];
 
   for (const [key, value] of formData.entries()) {
     if (key.startsWith("question-")) {
-      const questionIndex = parseInt(key.replace("question-", ""), 10);
-      answers.push({ questionIndex, answer: value as string });
+      const questionId = key.replace("question-", "");
+      answers.push({
+        questionId,
+        options: [value as string], // si es multiple, deberías acumular
+      });
     }
   }
 
@@ -24,16 +28,19 @@ export async function POST(request: Request) {
   }
 
   try {
-    const newResponse = await ResponseModel.create({
+    await ResponseModel.create({
       pollId,
       answers,
       createdAt: new Date(),
     });
 
-    return NextResponse.json({ success: true, responseId: newResponse._id });
+    return NextResponse.redirect(new URL("/thanks", request.url));
   } catch (error) {
-        console.error("Error saving response:", error);
+    console.error("Error saving response:", error);
 
-    return NextResponse.json({ error: "Error saving response" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Error saving response" },
+      { status: 500 }
+    );
   }
 }
