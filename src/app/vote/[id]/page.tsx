@@ -10,7 +10,7 @@ interface VotePageProps {
 }
 
 export default async function VotePage({ params }: VotePageProps) {
-  const { id } = params;
+  const { id } = await params;
 
   await connectDB();
   const poll = await Poll.findById(id);
