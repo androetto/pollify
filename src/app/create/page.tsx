@@ -4,7 +4,7 @@ import ConfigButton from "@/components/ConfigButton";
 import SettingsPanel from "@/components/SettingsPanel";
 import { IConfiguration, IQuestion } from "@/models/Poll";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const defaultConfig: IConfiguration = {
   visibility: "public",
@@ -32,16 +32,36 @@ export default function CreatePoll() {
   const [error, setError] = useState("");
   const [panelOpen, setPanelOpen] = useState(false);
 
- const handleAddQuestion = () => {
-  setQuestions([
-    ...questions,
-    { text: "", options: [{ text: "" }], multipleSelection: false },
-  ]);
-};
+  useEffect(() => {
+    const titleInput = document.querySelector('input[placeholder="Ej: Encuesta de satisfacción"]');
+    if (titleInput instanceof HTMLInputElement) {
+      titleInput.focus();
+    }
+  }, []);
+
+  const handleAddQuestion = () => {
+    setQuestions([
+      ...questions,
+      { text: "", options: [{ text: "" }], multipleSelection: false },
+    ]);
+    setTimeout(() => {
+      const inputs = document.querySelectorAll('input[placeholder="Ingrese la pregunta"]');
+      const lastInput = inputs[inputs.length - 1];
+      if (lastInput instanceof HTMLInputElement) {
+        lastInput.focus();
+      }
+    }, 0);
+  };
 
   const handleAddOption = (qIndex: number) => {
     const updated = [...questions];
     updated[qIndex].options.push({ text: "" });
+    setQuestions(updated);
+  };
+
+  const handleRemoveOption = (qIndex: number, oIndex: number) => {
+    const updated = [...questions];
+    updated[qIndex].options.splice(oIndex, 1);
     setQuestions(updated);
   };
 
@@ -164,22 +184,34 @@ export default function CreatePoll() {
               />
 
               {q.options.map((opt, oIndex) => (
-                <input
-                  key={oIndex}
-                  type="text"
-                  value={opt.text}
-                  onChange={(e) =>
-                    handleOptionChange(qIndex, oIndex, e.target.value)
-                  }
-                  className="w-full mb-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#322A7D]"
-                  placeholder={`Opción ${oIndex + 1}`}
-                />
+                <div key={oIndex} className="relative">
+                  <input
+                    type="text"
+                    value={opt.text}
+                    onChange={(e) =>
+                      handleOptionChange(qIndex, oIndex, e.target.value)
+                    }
+                    className="w-full mb-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#322A7D] pr-10"
+                    placeholder={`Opción ${oIndex + 1}`}
+                  />
+                  {q.options.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveOption(qIndex, oIndex)}
+                      className="absolute right-3 top-[11px] text-gray-400 hover:text-red-500 cursor-pointer p-1"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
               ))}
 
               <button
                 type="button"
                 onClick={() => handleAddOption(qIndex)}
-                className="mt-2 text-sm text-[#322A7D] font-medium hover:underline"
+                className="mt-2 text-sm text-[#322A7D] font-medium hover:underline cursor-pointer"
               >
                 + Agregar opción
               </button>

@@ -128,50 +128,72 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center mb-12">
             Por qué usar Pollify
           </h2>
-          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {[
-              {
-                icon: "/icons/sin-cuentas.png",
-                title: "Sin cuentas",
-                desc: "Creá encuestas sin necesidad de registro.",
-              },
-              {
-                icon: "/icons/compartir.png",
-                title: "Compartí en segundos",
-                desc: "Envía tu encuesta con un simple link o QR.",
-              },
-              {
-                icon: "/icons/resultados.png",
-                title: "Resultados claros",
-                desc: "Visualización en tiempo real, clara y accesible.",
-              },
-              {
-                icon: "/icons/libre.png",
-                title: "100% gratis",
-                desc: "Sin cargos ocultos, sin límite de uso.",
-              },
-              {
-                icon: "/icons/dispositivo.png",
-                title: "Multi-dispositivo",
-                desc: "Funciona en cualquier sistema o pantalla.",
-              },
-            ].map((item, idx) => (
-              <div key={idx} className="text-center">
-                <Image
-                  src={item.icon}
-                  alt={item.title}
-                  width={48}
-                  height={48}
-                  className="mx-auto mb-4"
-                />
-                <h3 className="text-xl font-semibold text-[var(--color-primary)] mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-[var(--color-secondary)]">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
+              {[
+                {
+                  icon: "/icons/sin-cuentas.png",
+                  title: "Sin cuentas",
+                  desc: "Creá encuestas sin necesidad de registro.",
+                },
+                {
+                  icon: "/icons/compartir.png",
+                  title: "Compartí en segundos",
+                  desc: "Envía tu encuesta con un simple link o QR.",
+                },
+                {
+                  icon: "/icons/resultados.png",
+                  title: "Resultados claros",
+                  desc: "Visualización en tiempo real, clara y accesible.",
+                },
+              ].map((item, idx) => (
+                <div key={idx} className="text-center">
+                  <Image
+                    src={item.icon}
+                    alt={item.title}
+                    width={48}
+                    height={48}
+                    className="mx-auto mb-4"
+                  />
+                  <h3 className="text-xl font-semibold text-[var(--color-primary)] mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-[var(--color-secondary)]">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-2xl mx-auto">
+              {[
+                {
+                  icon: "/icons/libre.png",
+                  title: "100% gratis",
+                  desc: "Sin cargos ocultos, sin límite de uso.",
+                },
+                {
+                  icon: "/icons/dispositivo.png",
+                  title: "Multi-dispositivo",
+                  desc: "Funciona en cualquier sistema o pantalla.",
+                },
+              ].map((item, idx) => (
+                <div key={idx} className="text-center">
+                  <Image
+                    src={item.icon}
+                    alt={item.title}
+                    width={48}
+                    height={48}
+                    className="mx-auto mb-4"
+                  />
+                  <h3 className="text-xl font-semibold text-[var(--color-primary)] mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-[var(--color-secondary)]">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
