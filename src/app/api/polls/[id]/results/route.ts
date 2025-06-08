@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Poll from "@/models/Poll";
-import Response from "@/models/Response";
+import Response, { IResponse } from "@/models/Response";
 import { getCurrentUser } from "@/lib/getCurrentUser";
+
+type Answer = IResponse['answers'][0];
 
 export async function GET(
   request: NextRequest,
@@ -37,7 +39,7 @@ export async function GET(
     // Procesar los resultados
     const results = poll.questions.map(question => {
       const questionResponses = responses.flatMap(response => 
-        response.answers.find(answer => answer.questionId === question._id?.toString())?.options || []
+        response.answers.find((answer: Answer) => answer.questionId === question._id?.toString())?.options || []
       );
 
       const optionCounts = question.options.reduce((acc, option) => {
