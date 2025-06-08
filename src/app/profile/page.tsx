@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import { IUser } from '@/models/User'
-import FullScreenLoading from '@/components/FullScreenLoading'
 import { IPoll } from '@/models/Poll'
+import FullScreenLoading from '@/components/FullScreenLoading'
 
 export default function ProfilePage() {
   const { data: session } = useSession()
@@ -51,7 +51,7 @@ export default function ProfilePage() {
           <ul className="space-y-4">
             {polls.map((poll) => (
               <li
-                key={poll._id}
+                key={poll._id?.toString()}
                 className="border border-gray-300 rounded-lg p-4 hover:shadow-md cursor-pointer transition"
                 onClick={() => window.location.href = `/polls/${poll._id}/results`}
               >
