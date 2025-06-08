@@ -2,6 +2,8 @@
 
 import ConfigButton from "@/components/ConfigButton";
 import SettingsPanel from "@/components/SettingsPanel";
+import FullScreenLoading from "@/components/FullScreenLoading";
+import PrimaryButton from "@/components/PrimaryButton";
 import { IConfiguration, IQuestion } from "@/models/Poll";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -108,14 +110,10 @@ export default function CreatePoll() {
 
       if (!response.ok) throw new Error("Error al crear la votación");
 
-     
-      setTitle("");
-      setSubtitle("");
-      setQuestions([]);
+      const data = await response.json();
 
-      if (!response.ok) throw new Error("Error al crear la votación");
-
-      const data = await response.json(); // { id: "pollId" }
+      // Pequeño delay para asegurar que el loading se vea
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Redirigir a la página finish con el id del poll
       router.push(`/finish/${data.poll._id}`);
@@ -123,13 +121,14 @@ export default function CreatePoll() {
     } catch (err) {
       console.error(err);
       setError("Ocurrió un error desconocido");
-    } finally {
       setLoading(false);
     }
   };
 
   return (
     <div className="max-w-3xl mx-auto p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
+      <FullScreenLoading isOpen={loading} message="Creando tu votación..." />
+      
       <h1 className="text-3xl font-bold text-[#322A7D] text-center mb-2">
         Pollify
       </h1>
@@ -220,25 +219,19 @@ export default function CreatePoll() {
         </div>
 
         <div className="flex justify-center mt-6">
-          <button
-            type="button"
-            onClick={handleAddQuestion}
-            className="px-5 py-2 bg-[#322A7D] text-white font-semibold rounded-lg hover:bg-[#42389D] transition"
-          >
+          <PrimaryButton onClick={handleAddQuestion}>
             + Agregar pregunta
-          </button>
+          </PrimaryButton>
         </div>
 
         <div className="flex justify-center mt-8">
-          <button
+          <PrimaryButton
             type="submit"
             disabled={loading}
-            className={`px-6 py-3 text-white font-semibold rounded-lg transition ${
-              loading ? "bg-gray-400" : "bg-[#322A7D] hover:bg-[#42389D]"
-            }`}
+            fullWidth
           >
             {loading ? "Guardando..." : "Guardar Votación"}
-          </button>
+          </PrimaryButton>
         </div>
       </form>
       {/* Icono de la ruedita */}

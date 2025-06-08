@@ -2,6 +2,8 @@
 
 import { IPoll } from "@/models/Poll";
 import { useState } from "react";
+import FullScreenLoading from "@/components/FullScreenLoading";
+import PrimaryButton from "@/components/PrimaryButton";
 
 export default function VoteForm({ poll }: { poll: IPoll }) {
   const [loading, setLoading] = useState(false);
@@ -12,22 +14,31 @@ export default function VoteForm({ poll }: { poll: IPoll }) {
 
     const formData = new FormData(e.currentTarget);
 
-    const res = await fetch("/api/responses", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const res = await fetch("/api/responses", {
+        method: "POST",
+        body: formData,
+      });
 
-    if (res.ok) {
-      window.location.href = "/thanks";
-    } else {
+      if (res.ok) {
+        // Pequeño delay para asegurar que el loading se vea
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        window.location.href = "/thanks";
+      } else {
+        alert("Error al enviar.");
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
       alert("Error al enviar.");
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <FullScreenLoading isOpen={loading} message="Enviando tu voto..." />
+      
       <input type="hidden" name="pollId" value={String(poll._id)} />
 
       {poll.questions.map((q, qIndex) => (
@@ -57,13 +68,13 @@ export default function VoteForm({ poll }: { poll: IPoll }) {
         </div>
       ))}
 
-      <button
+      <PrimaryButton
         type="submit"
         disabled={loading}
-        className="mt-4 px-6 py-2 bg-[#322A7D] text-white rounded hover:bg-[#42389D] w-full"
+        fullWidth
       >
         {loading ? "Enviando..." : "Enviar"}
-      </button>
+      </PrimaryButton>
     </form>
   );
 }
