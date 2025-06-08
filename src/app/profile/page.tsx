@@ -3,33 +3,29 @@
 import { useEffect, useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import { IUser } from '@/models/User'
-
-type Poll = {
-  id: string
-  title: string
-  subtitle: string
-}
+import FullScreenLoading from '@/components/FullScreenLoading'
+import { IPoll } from '@/models/Poll'
 
 export default function ProfilePage() {
   const { data: session } = useSession()
   const [user, setUser] = useState<IUser>()
   const [phone, setPhone] = useState('')
-
-  // Mocked polls data
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [polls, setPolls] = useState<Poll[]>([
-    { id: '1', title: 'Encuesta de satisfacción', subtitle: 'Queremos saber tu opinión' },
-    { id: '2', title: 'Preferencias de producto', subtitle: 'Elige tus opciones favoritas' },
-    { id: '3', title: 'Feedback de evento', subtitle: 'Cuéntanos cómo estuvo' },
-  ])
+  const [loading, setLoading] = useState(true)
+  const [polls, setPolls] = useState<IPoll[]>([])
 
   useEffect(() => {
     if (session) {
-      fetch('/api/user')
-        .then(res => res.json())
-        .then(data => {
-          setUser(data.user)
-          setPhone(data.user.phone || '')
+      Promise.all([
+        fetch('/api/user').then(res => res.json()),
+        fetch('/api/polls/user').then(res => res.json())
+      ])
+        .then(([userData, pollsData]) => {
+          setUser(userData.user)
+          setPhone(userData.user.phone || '')
+          setPolls(pollsData.polls)
+        })
+        .finally(() => {
+          setLoading(false)
         })
     }
   }, [session])
@@ -42,25 +38,32 @@ export default function ProfilePage() {
     setPhone(e.target.value)
   }
 
-  if (!user) return <div>Cargando...</div>
+  if (!user) return <FullScreenLoading isOpen={loading} message="Cargando perfil..." />
 
   return (
     <div className="max-w-3xl mx-auto p-8 space-y-10">
       {/* Sección Mis Polls */}
       <section className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
         <h1 className="text-3xl font-bold text-[#322A7D] text-center mb-2">Mis Polls</h1>
-        <ul className="space-y-4">
-          {polls.map((poll) => (
-            <li
-              key={poll.id}
-              className="border border-gray-300 rounded-lg p-4 hover:shadow-md cursor-pointer transition"
-              // Aquí podrías agregar onClick para abrir la poll
-            >
-              <h3 className="font-semibold text-lg">{poll.title}</h3>
-              <p className="text-gray-600">{poll.subtitle}</p>
-            </li>
-          ))}
-        </ul>
+        {polls.length === 0 ? (
+          <p className="text-center text-gray-600">No has creado ninguna encuesta aún.</p>
+        ) : (
+          <ul className="space-y-4">
+            {polls.map((poll) => (
+              <li
+                key={poll._id}
+                className="border border-gray-300 rounded-lg p-4 hover:shadow-md cursor-pointer transition"
+                onClick={() => window.location.href = `/polls/${poll._id}/results`}
+              >
+                <h3 className="font-semibold text-lg">{poll.title}</h3>
+                <p className="text-gray-600">{poll.subtitle}</p>
+                <p className="text-sm text-gray-500 mt-2">
+                  Creada el {new Date(poll.createdAt).toLocaleDateString()}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
       {/* Sección Mis Datos */}
@@ -103,8 +106,6 @@ export default function ProfilePage() {
           </div>
 
           <div className="flex justify-center space-x-4">
-      
-
             <button
               type="button"
               onClick={handleLogout}

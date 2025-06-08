@@ -11,8 +11,9 @@ export default function UserMenu() {
   if (!session?.user) return null
 
   return (
-    <div className="inline-block cursor-pointer border border-gray-300 rounded-full w-10 h-10 overflow-hidden"
-         onClick={() => router.push("/profile")}
+    <div 
+      className="inline-block cursor-pointer border border-gray-300 rounded-full w-10 h-10 overflow-hidden hover:opacity-80 transition-opacity"
+      onClick={() => router.push("/profile")}
     >
       <Image
         src={session.user.image || "/default-avatar.png"}
