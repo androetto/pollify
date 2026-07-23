@@ -7,7 +7,7 @@ import CreatePollButton from "@/components/CreatePollButton";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Head>
         <title>Pollify - Votación Online</title>
         <meta
@@ -18,8 +18,8 @@ export default function Home() {
       </Head>
 
       {/* Hero */}
-      <header className="bg-[var(--color-primary)] text-white py-24 px-6 text-center animate-fade-in">
-        <h1 className="text-5xl font-bold mb-4">Pollify</h1>
+      <header className="gradient-primary text-white py-28 px-6 text-center animate-fade-in relative overflow-hidden">
+        <h1 className="text-6xl md:text-7xl font-extrabold mb-4 tracking-tight drop-shadow-sm">Pollify</h1>
         <h2 className="text-xl md:text-2xl h-8 font-medium">
           <Typewriter
             words={[
@@ -71,7 +71,7 @@ export default function Home() {
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="bg-white rounded-2xl shadow p-6 text-center border"
+                className="glass-card rounded-2xl shadow-xl shadow-purple-500/10 p-6 text-center transition hover:-translate-y-1"
               >
                 <h3 className="text-xl font-semibold text-[var(--color-primary)] mb-2">
                   {item.title}
@@ -104,7 +104,7 @@ export default function Home() {
               },
             ].map((step, idx) => (
               <div key={idx} className="flex flex-col items-center max-w-xs">
-                <div className="w-24 h-24 rounded-full bg-white shadow border-2 border-[var(--color-primary)] flex items-center justify-center">
+                <div className="w-24 h-24 rounded-full glass-card shadow-xl shadow-purple-500/10 flex items-center justify-center">
                   <Image
                     src={step.icon}
                     alt={step.title}
@@ -124,7 +124,7 @@ export default function Home() {
         </section>
 
         {/* Por qué usar Pollify */}
-        <section className="bg-white py-16 px-6 rounded-xl shadow-inner animate-fade-in">
+        <section className="glass-card py-16 px-6 rounded-2xl shadow-xl shadow-purple-500/10 animate-fade-in">
           <h2 className="text-3xl font-bold text-center mb-12">
             Por qué usar Pollify
           </h2>
@@ -205,7 +205,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="bg-[var(--color-secondary)] text-[var(--color-foreground-light)] text-center py-4">
+      <footer className="gradient-primary text-white text-center py-4">
         <p>&copy; 2025 Copyright Pollify. All Rights Reserved.</p>
       </footer>
     </div>

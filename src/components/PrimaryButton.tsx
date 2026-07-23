@@ -26,9 +26,10 @@ export default function PrimaryButton({
         font-semibold
         rounded-lg
         transition
+        duration-200
         active:scale-[0.98]
         cursor-pointer
-        ${disabled ? 'bg-gray-400 cursor-not-allowed active:scale-100' : 'bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)]'}
+        ${disabled ? 'bg-gray-400 cursor-not-allowed active:scale-100' : 'gradient-primary shadow-glow hover:scale-[1.02]'}
         ${fullWidth ? 'w-full' : ''}
         ${className}
       `}

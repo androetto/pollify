@@ -12,7 +12,7 @@ export default function UserMenu() {
 
   return (
     <div 
-      className="inline-block cursor-pointer border border-gray-300 rounded-full w-10 h-10 overflow-hidden hover:opacity-80 transition-opacity"
+      className="inline-block cursor-pointer glass-card rounded-full w-10 h-10 overflow-hidden shadow-lg shadow-purple-500/10 hover:opacity-80 transition-opacity"
       onClick={() => router.push("/profile")}
     >
       <Image
