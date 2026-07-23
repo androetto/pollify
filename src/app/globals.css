@@ -1,22 +1,19 @@
 @import "tailwindcss";
 
-/* 🎨 PALETA ACTIVA (vibrante y moderna) — única fuente de verdad de color en todo el sitio */
+/* 🎨 PALETA ACTIVA (neutra, un solo acento) — única fuente de verdad de color en todo el sitio */
 :root {
-  --color-background: #f9f5ff;
-  --color-foreground: #111827;
-  --color-foreground-light: #f4f4f5;
+  --color-background: #f8fafc;
+  --color-foreground: #1e293b;
+  --color-foreground-light: #f1f5f9;
   --color-primary: #7c3aed;
   --color-primary-dark: #6d28d9;
-  --color-primary-light: #c084fc;
-  --color-primary-tint: #f3e8ff;
-  --color-secondary: #6b7280;
+  --color-primary-light: #a78bfa;
+  --color-primary-tint: #ede9fe;
+  --color-secondary: #64748b;
   --color-surface: #ffffff;
-  --color-border: #e9d8fd;
+  --color-border: #e2e8f0;
   --color-success: #16a34a;
   --color-danger: #dc2626;
-
-  --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #a855f7 55%, #ec4899 100%);
-  --gradient-primary-hover: linear-gradient(135deg, #6d28d9 0%, #9333ea 55%, #db2777 100%);
 
   --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
   --font-mono: var(--font-geist-mono, monospace);
@@ -31,32 +28,25 @@
 
 body {
   background-color: var(--color-background);
-  background-image:
-    radial-gradient(circle at 15% 10%, rgba(124, 58, 237, 0.16), transparent 45%),
-    radial-gradient(circle at 85% 0%, rgba(236, 72, 153, 0.14), transparent 45%),
-    radial-gradient(circle at 50% 100%, rgba(168, 85, 247, 0.12), transparent 50%);
-  background-attachment: fixed;
   color: var(--color-foreground);
   font-family: var(--font-sans);
 }
 
-.gradient-primary {
-  background-image: var(--gradient-primary);
+.card-surface {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
 }
 
-.gradient-primary:hover {
-  background-image: var(--gradient-primary-hover);
+.btn-accent {
+  background-color: var(--color-primary);
 }
 
-.glass-card {
-  background-color: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+.btn-accent:hover {
+  background-color: var(--color-primary-dark);
 }
 
-.hover-gradient:hover {
-  background-image: var(--gradient-primary);
+.hover-accent:hover {
+  background-color: var(--color-primary);
   color: white;
 }
 
@@ -98,25 +88,4 @@ body {
 
 .animate-bar-grow {
   animation: bar-grow 0.6s ease-out both;
-}
-
-@keyframes blob-float {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(3%, 5%) scale(1.08);
-  }
-}
-
-.animate-blob-float {
-  animation: blob-float 14s ease-in-out infinite;
-}
-
-.animate-blob-float-slow {
-  animation: blob-float 20s ease-in-out infinite reverse;
-}
-
-.shadow-glow {
-  box-shadow: 0 10px 30px -5px rgba(124, 58, 237, 0.45);
 }

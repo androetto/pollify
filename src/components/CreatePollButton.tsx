@@ -18,7 +18,7 @@ export default function CreatePollButton() {
   return (
     <button
       onClick={handleClick}
-      className="cursor-pointer gradient-primary text-white py-3 px-8 rounded-full text-xl font-semibold shadow-glow transition duration-200 hover:scale-[1.03] active:scale-[0.98]"
+      className="cursor-pointer btn-accent text-white py-3 px-8 rounded-full text-xl font-semibold shadow-sm transition duration-200 hover:scale-[1.02] active:scale-[0.98]"
     >
       Comenzar ahora
     </button>

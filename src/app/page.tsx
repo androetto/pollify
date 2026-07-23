@@ -1,9 +1,30 @@
 "use client";
 
 import Head from "next/head";
-import Image from "next/image";
 import { Typewriter } from "react-simple-typewriter";
 import CreatePollButton from "@/components/CreatePollButton";
+import {
+  HiOutlineUserGroup,
+  HiOutlineChatBubbleLeftRight,
+  HiOutlineAcademicCap,
+  HiOutlineRocketLaunch,
+  HiOutlineClipboardDocumentList,
+  HiOutlineShare,
+  HiOutlineChartBar,
+  HiOutlineUserMinus,
+  HiOutlineBolt,
+  HiOutlineChartPie,
+  HiOutlineGift,
+  HiOutlineDevicePhoneMobile,
+} from "react-icons/hi2";
+
+function IconBadge({ icon: Icon }: { icon: React.ComponentType<{ className?: string }> }) {
+  return (
+    <div className="w-14 h-14 rounded-full bg-[var(--color-primary-tint)] flex items-center justify-center mx-auto mb-4">
+      <Icon className="w-6 h-6 text-[var(--color-primary)]" />
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -18,14 +39,16 @@ export default function Home() {
       </Head>
 
       {/* Hero */}
-      <header className="gradient-primary text-white py-28 px-6 text-center animate-fade-in relative overflow-hidden">
-        <h1 className="text-6xl md:text-7xl font-extrabold mb-4 tracking-tight drop-shadow-sm">Pollify</h1>
-        <h2 className="text-xl md:text-2xl h-8 font-medium">
+      <header className="py-28 px-6 text-center animate-fade-in">
+        <h1 className="text-6xl md:text-7xl font-extrabold mb-4 tracking-tight text-[var(--color-foreground)]">
+          Pollify
+        </h1>
+        <h2 className="text-xl md:text-2xl h-8 font-medium text-[var(--color-secondary)]">
           <Typewriter
             words={[
-              "La forma más simple de tomar decisiones en grupo.",
-              "Crea una pregunta, compartí el link y obtené respuestas.",
-              "Opiniones rápidas. Decisiones inteligentes.",
+              "Preguntá. Compartí. Enterate en minutos.",
+              "Sin registros. Sin instalar nada. Solo respuestas.",
+              "La decisión de grupo, resuelta con un link.",
             ]}
             loop={0}
             cursor
@@ -35,9 +58,9 @@ export default function Home() {
             delaySpeed={2000}
           />
         </h2>
-        <p className="mt-10 max-w-2xl mx-auto text-lg">
-          Armá una pregunta con opciones, compartila, y descubrí qué piensa tu
-          comunidad, tu equipo o tus amigos.
+        <p className="mt-10 max-w-2xl mx-auto text-lg text-[var(--color-secondary)]">
+          Creá una encuesta en menos de un minuto y compartila por WhatsApp,
+          redes o QR. Así de simple.
         </p>
         <div className="mt-10">
           <CreatePollButton />
@@ -47,36 +70,41 @@ export default function Home() {
       <main className="flex-grow bg-[var(--color-background)] px-6 py-16">
         {/* Casos de uso */}
         <section className="max-w-6xl mx-auto mb-24 animate-fade-in">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12 text-[var(--color-foreground)]">
             ¿Para qué puedo usar Pollify?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
+                icon: HiOutlineUserGroup,
                 title: "Equipos de trabajo",
                 desc: "Decisiones rápidas sin reuniones innecesarias.",
               },
               {
+                icon: HiOutlineChatBubbleLeftRight,
                 title: "Creadores de contenido",
                 desc: "Conectá con tu audiencia con encuestas interactivas.",
               },
               {
+                icon: HiOutlineAcademicCap,
                 title: "Docentes y educadores",
                 desc: "Evaluá el aprendizaje de forma participativa.",
               },
               {
+                icon: HiOutlineRocketLaunch,
                 title: "Emprendedores",
                 desc: "Testeá ideas con tu audiencia antes de lanzar.",
               },
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="glass-card rounded-2xl shadow-xl shadow-purple-500/10 p-6 text-center transition hover:-translate-y-1"
+                className="card-surface rounded-2xl shadow-sm p-6 text-center transition hover:-translate-y-1"
               >
-                <h3 className="text-xl font-semibold text-[var(--color-primary)] mb-2">
+                <IconBadge icon={item.icon} />
+                <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-2">
                   {item.title}
                 </h3>
-                <p className=" text-[var(--color-secondary)]">{item.desc}</p>
+                <p className="text-[var(--color-secondary)]">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -84,35 +112,30 @@ export default function Home() {
 
         {/* Cómo funciona */}
         <section className="max-w-5xl mx-auto text-center mb-24 animate-fade-in">
-          <h2 className="text-3xl font-bold mb-12">¿Cómo funciona?</h2>
+          <h2 className="text-3xl font-bold mb-12 text-[var(--color-foreground)]">¿Cómo funciona?</h2>
           <div className="flex flex-col md:flex-row gap-10 justify-center items-center">
             {[
               {
-                icon: "/encuesta.png",
+                icon: HiOutlineClipboardDocumentList,
                 title: "Creá una pregunta",
                 desc: "Con opciones múltiples. Ideal para encuestas o decisiones grupales.",
               },
               {
-                icon: "/compartir-enlace.png",
+                icon: HiOutlineShare,
                 title: "Compartila por link o QR",
                 desc: "Enviá tu encuesta a quien quieras, desde donde quieras.",
               },
               {
-                icon: "/grafico-de-barras.png",
+                icon: HiOutlineChartBar,
                 title: "Revisá los resultados",
                 desc: "En tiempo real, desde cualquier dispositivo.",
               },
             ].map((step, idx) => (
               <div key={idx} className="flex flex-col items-center max-w-xs">
-                <div className="w-24 h-24 rounded-full glass-card shadow-xl shadow-purple-500/10 flex items-center justify-center">
-                  <Image
-                    src={step.icon}
-                    alt={step.title}
-                    width={48}
-                    height={48}
-                  />
+                <div className="w-24 h-24 rounded-full card-surface shadow-sm flex items-center justify-center">
+                  <step.icon className="w-9 h-9 text-[var(--color-primary)]" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-[var(--color-primary)]">
+                <h3 className="mt-4 text-lg font-semibold text-[var(--color-foreground)]">
                   {step.title}
                 </h3>
                 <p className="text-sm text-[var(--color-secondary)] mt-2">
@@ -124,38 +147,32 @@ export default function Home() {
         </section>
 
         {/* Por qué usar Pollify */}
-        <section className="glass-card py-16 px-6 rounded-2xl shadow-xl shadow-purple-500/10 animate-fade-in">
-          <h2 className="text-3xl font-bold text-center mb-12">
+        <section className="card-surface py-16 px-6 rounded-2xl shadow-sm animate-fade-in">
+          <h2 className="text-3xl font-bold text-center mb-12 text-[var(--color-foreground)]">
             Por qué usar Pollify
           </h2>
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
               {[
                 {
-                  icon: "/icons/sin-cuentas.png",
+                  icon: HiOutlineUserMinus,
                   title: "Sin cuentas",
                   desc: "Creá encuestas sin necesidad de registro.",
                 },
                 {
-                  icon: "/icons/compartir.png",
+                  icon: HiOutlineBolt,
                   title: "Compartí en segundos",
                   desc: "Envía tu encuesta con un simple link o QR.",
                 },
                 {
-                  icon: "/icons/resultados.png",
+                  icon: HiOutlineChartPie,
                   title: "Resultados claros",
                   desc: "Visualización en tiempo real, clara y accesible.",
                 },
               ].map((item, idx) => (
                 <div key={idx} className="text-center">
-                  <Image
-                    src={item.icon}
-                    alt={item.title}
-                    width={48}
-                    height={48}
-                    className="mx-auto mb-4"
-                  />
-                  <h3 className="text-xl font-semibold text-[var(--color-primary)] mb-2">
+                  <IconBadge icon={item.icon} />
+                  <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-2">
                     {item.title}
                   </h3>
                   <p className="text-sm text-[var(--color-secondary)]">
@@ -167,25 +184,19 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-2xl mx-auto">
               {[
                 {
-                  icon: "/icons/libre.png",
+                  icon: HiOutlineGift,
                   title: "100% gratis",
                   desc: "Sin cargos ocultos, sin límite de uso.",
                 },
                 {
-                  icon: "/icons/dispositivo.png",
+                  icon: HiOutlineDevicePhoneMobile,
                   title: "Multi-dispositivo",
                   desc: "Funciona en cualquier sistema o pantalla.",
                 },
               ].map((item, idx) => (
                 <div key={idx} className="text-center">
-                  <Image
-                    src={item.icon}
-                    alt={item.title}
-                    width={48}
-                    height={48}
-                    className="mx-auto mb-4"
-                  />
-                  <h3 className="text-xl font-semibold text-[var(--color-primary)] mb-2">
+                  <IconBadge icon={item.icon} />
+                  <h3 className="text-xl font-semibold text-[var(--color-foreground)] mb-2">
                     {item.title}
                   </h3>
                   <p className="text-sm text-[var(--color-secondary)]">
@@ -198,14 +209,14 @@ export default function Home() {
         </section>
 
         <section className="text-center py-16">
-          <h2 className="text-2xl font-bold mb-6 text-[var(--color-primary)]">
-            ¿Listo para crear tu encuesta?
+          <h2 className="text-2xl font-bold mb-6 text-[var(--color-foreground)]">
+            Tu primera encuesta te toma menos de un minuto
           </h2>
           <CreatePollButton />
         </section>
       </main>
 
-      <footer className="gradient-primary text-white text-center py-4">
+      <footer className="border-t border-[var(--color-border)] text-[var(--color-secondary)] text-center py-4 text-sm">
         <p>&copy; 2025 Copyright Pollify. All Rights Reserved.</p>
       </footer>
     </div>

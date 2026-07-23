@@ -81,7 +81,7 @@ export default function PollResultsPage() {
   return (
     <PageShell maxWidth="4xl">
       <Card className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-[var(--color-primary)] mb-2">{data.poll.title}</h1>
+        <h1 className="text-3xl font-bold text-[var(--color-foreground)] mb-2">{data.poll.title}</h1>
         <p className="text-gray-600 mb-4">{data.poll.subtitle}</p>
         <div className="text-sm text-[var(--color-secondary)]">
           Total de respuestas: {data.totalResponses}
@@ -93,7 +93,7 @@ export default function PollResultsPage() {
           const maxCount = Math.max(...result.options.map((o) => o.count))
           return (
             <Card key={result.questionId}>
-              <h2 className="text-xl font-semibold text-[var(--color-primary)] mb-4">{result.questionText}</h2>
+              <h2 className="text-xl font-semibold text-[var(--color-foreground)] mb-4">{result.questionText}</h2>
               <div className="space-y-4">
                 {result.options.map((option) => {
                   const isWinner = option.count === maxCount && maxCount > 0

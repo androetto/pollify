@@ -10,7 +10,7 @@ import Card from '@/components/Card'
 import PageShell from '@/components/PageShell'
 import EmptyState from '@/components/EmptyState'
 import PrimaryButton from '@/components/PrimaryButton'
-import { FaPoll, FaCalendarAlt } from 'react-icons/fa'
+import { HiOutlineClipboardDocumentList, HiOutlineCalendar } from 'react-icons/hi2'
 
 export default function ProfilePage() {
   const { data: session } = useSession()
@@ -51,10 +51,10 @@ export default function ProfilePage() {
     <PageShell className="space-y-10">
       {/* Sección Mis Polls */}
       <Card padding="md">
-        <h1 className="text-3xl font-bold text-[var(--color-primary)] text-center mb-4">Mis Polls</h1>
+        <h1 className="text-3xl font-bold text-[var(--color-foreground)] text-center mb-4">Mis Polls</h1>
         {polls.length === 0 ? (
           <EmptyState
-            icon={FaPoll}
+            icon={HiOutlineClipboardDocumentList}
             title="No creaste ninguna encuesta aún"
             description="Armá tu primera encuesta y compartila para empezar a recibir votos."
             action={
@@ -74,7 +74,7 @@ export default function ProfilePage() {
                 <h3 className="font-semibold text-lg text-[var(--color-foreground)]">{poll.title}</h3>
                 <p className="text-gray-600">{poll.subtitle}</p>
                 <p className="text-sm text-gray-500 mt-2 flex items-center gap-1">
-                  <FaCalendarAlt className="w-3 h-3" />
+                  <HiOutlineCalendar className="w-3.5 h-3.5" />
                   Creada el {new Date(poll.createdAt).toLocaleDateString()}
                 </p>
               </li>
@@ -85,7 +85,7 @@ export default function ProfilePage() {
 
       {/* Sección Mis Datos */}
       <Card>
-        <h1 className="text-3xl font-bold text-[var(--color-primary)] text-center mb-2">Mis Datos</h1>
+        <h1 className="text-3xl font-bold text-[var(--color-foreground)] text-center mb-2">Mis Datos</h1>
         <p className="text-md text-gray-600 text-center mb-6">
           Actualizá tu información personal
         </p>

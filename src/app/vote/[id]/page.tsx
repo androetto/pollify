@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import VoteForm from "./VoteForm";
 import Card from "@/components/Card";
 import PageShell from "@/components/PageShell";
-import { FaChartBar } from "react-icons/fa";
+import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 
 export const dynamic = "force-dynamic";
 
@@ -24,9 +24,9 @@ export default async function VotePage({ params }: VotePageProps) {
       <Card>
         <div className="flex flex-col items-center mb-2">
           <div className="w-14 h-14 rounded-full bg-[var(--color-primary-tint)] flex items-center justify-center mb-3">
-            <FaChartBar className="w-6 h-6 text-[var(--color-primary)]" />
+            <HiOutlineChatBubbleLeftRight className="w-6 h-6 text-[var(--color-primary)]" />
           </div>
-          <h1 className="text-3xl font-bold text-[var(--color-primary)] text-center">
+          <h1 className="text-3xl font-bold text-[var(--color-foreground)] text-center">
             {poll.title}
           </h1>
           <p className="text-md text-[var(--color-secondary)] text-center mt-1 mb-2">

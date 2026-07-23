@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import QRCode from "react-qr-code";
-import { FaCheck, FaRegCopy, FaShareAlt } from "react-icons/fa";
+import { HiOutlineCheck, HiOutlineClipboard, HiOutlineShare } from "react-icons/hi2";
 import PrimaryButton from "./PrimaryButton";
 
 interface CopyVoteUrlProps {
@@ -53,13 +53,13 @@ export default function CopyVoteUrl({ id }: CopyVoteUrlProps) {
           aria-label="Copiar link"
           className="p-3 rounded-lg bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-dark)] transition cursor-pointer shrink-0"
         >
-          {copied ? <FaCheck /> : <FaRegCopy />}
+          {copied ? <HiOutlineCheck /> : <HiOutlineClipboard />}
         </button>
       </div>
 
       {canShare && (
         <PrimaryButton onClick={handleShare} className="flex items-center gap-2">
-          <FaShareAlt /> Compartir
+          <HiOutlineShare /> Compartir
         </PrimaryButton>
       )}
     </div>

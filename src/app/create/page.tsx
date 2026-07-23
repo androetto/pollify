@@ -9,7 +9,7 @@ import PageShell from "@/components/PageShell";
 import { IConfiguration, IQuestion } from "@/models/Poll";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { FaListUl, FaTrash } from "react-icons/fa";
+import { HiOutlineClipboardDocumentList, HiOutlineTrash, HiOutlineQuestionMarkCircle } from "react-icons/hi2";
 
 const defaultConfig: IConfiguration = {
   visibility: "public",
@@ -135,9 +135,9 @@ export default function CreatePoll() {
 
         <div className="flex flex-col items-center mb-6">
           <div className="w-14 h-14 rounded-full bg-[var(--color-primary-tint)] flex items-center justify-center mb-3">
-            <FaListUl className="w-6 h-6 text-[var(--color-primary)]" />
+            <HiOutlineClipboardDocumentList className="w-6 h-6 text-[var(--color-primary)]" />
           </div>
-          <h1 className="text-3xl font-bold text-[var(--color-primary)] text-center">
+          <h1 className="text-3xl font-bold text-[var(--color-foreground)] text-center">
             Nueva encuesta
           </h1>
           <p className="text-md text-[var(--color-secondary)] text-center mt-1">
@@ -191,7 +191,8 @@ export default function CreatePoll() {
                 className="bg-gray-50 p-5 rounded-lg border border-gray-200 animate-fade-in"
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="text-xs font-semibold px-2 py-1 rounded-full bg-[var(--color-primary-tint)] text-[var(--color-primary)]">
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full bg-[var(--color-primary-tint)] text-[var(--color-primary)]">
+                    <HiOutlineQuestionMarkCircle className="w-4 h-4" />
                     Pregunta {qIndex + 1}
                   </span>
                 </div>
@@ -220,7 +221,7 @@ export default function CreatePoll() {
                         onClick={() => handleRemoveOption(qIndex, oIndex)}
                         className="absolute right-3 top-[13px] text-gray-400 hover:text-[var(--color-danger)] cursor-pointer p-1"
                       >
-                        <FaTrash className="h-4 w-4" />
+                        <HiOutlineTrash className="h-4 w-4" />
                       </button>
                     )}
                   </div>

@@ -13,7 +13,7 @@ const paddingClasses = {
 export default function Card({ children, className = "", padding = "lg" }: Props) {
   return (
     <div
-      className={`glass-card rounded-2xl shadow-xl shadow-purple-500/10 ${paddingClasses[padding]} ${className}`}
+      className={`card-surface rounded-2xl shadow-sm ${paddingClasses[padding]} ${className}`}
     >
       {children}
     </div>

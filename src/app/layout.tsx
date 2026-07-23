@@ -4,7 +4,6 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import SessionWrapper from "@/components/SessionWrapper";
 import UserMenu from "@/components/UserMenu";
-import GradientBackdrop from "@/components/GradientBackdrop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +30,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <GradientBackdrop />
         <SessionWrapper>
           <header className="fixed top-4 left-4 z-50">
             <UserMenu />

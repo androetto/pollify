@@ -1,5 +1,5 @@
 // src/components/ConfigButton.tsx
-import { FaCog } from "react-icons/fa"
+import { HiOutlineCog6Tooth } from "react-icons/hi2"
 
 interface Props {
   onClick: () => void
@@ -10,9 +10,9 @@ export default function ConfigButton({ onClick }: Props) {
     <button
       aria-label="Configuración"
       onClick={onClick}
-      className="fixed top-4 right-4 p-2 rounded-full glass-card hover-gradient text-[var(--color-primary)] transition-colors shadow-xl shadow-purple-500/10 cursor-pointer"
+      className="fixed top-4 right-4 p-2 rounded-full card-surface hover-accent text-[var(--color-secondary)] transition-colors shadow-sm cursor-pointer"
     >
-      <FaCog size={24} />
+      <HiOutlineCog6Tooth size={24} />
     </button>
   )
 }

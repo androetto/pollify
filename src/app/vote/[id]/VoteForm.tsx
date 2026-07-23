@@ -4,6 +4,7 @@ import { IPoll } from "@/models/Poll";
 import { useState } from "react";
 import FullScreenLoading from "@/components/FullScreenLoading";
 import PrimaryButton from "@/components/PrimaryButton";
+import { HiOutlineQuestionMarkCircle } from "react-icons/hi2";
 
 export default function VoteForm({ poll }: { poll: IPoll }) {
   const [loading, setLoading] = useState(false);
@@ -46,7 +47,8 @@ export default function VoteForm({ poll }: { poll: IPoll }) {
           key={qIndex}
           className="bg-gray-50 p-5 rounded-lg border border-gray-200 mb-6"
         >
-          <label className="block font-semibold text-gray-700 mb-3">
+          <label className="flex items-start gap-2 font-semibold text-gray-700 mb-3">
+            <HiOutlineQuestionMarkCircle className="w-5 h-5 text-[var(--color-primary)] shrink-0 mt-0.5" />
             {q.text}
           </label>
 
