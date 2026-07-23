@@ -10,7 +10,7 @@ export default function ConfigButton({ onClick }: Props) {
     <button
       aria-label="Configuración"
       onClick={onClick}
-      className="fixed top-4 right-4 p-2 rounded-full bg-gray-200 hover:bg-gray-300 shadow-lg cursor-pointer"
+      className="fixed top-4 right-4 p-2 rounded-full bg-[var(--color-primary-tint)] text-[var(--color-primary)] hover:bg-[var(--color-primary-light)] hover:text-white transition-colors shadow-lg cursor-pointer"
     >
       <FaCog size={24} />
     </button>

@@ -1,13 +1,19 @@
 @import "tailwindcss";
 
-/* 🎨 PALETA ACTIVA (vibrante y moderna) */
+/* 🎨 PALETA ACTIVA (vibrante y moderna) — única fuente de verdad de color en todo el sitio */
 :root {
   --color-background: #f9f5ff;
   --color-foreground: #111827;
   --color-foreground-light: #f4f4f5;
   --color-primary: #7c3aed;
+  --color-primary-dark: #6d28d9;
   --color-primary-light: #c084fc;
+  --color-primary-tint: #f3e8ff;
   --color-secondary: #6b7280;
+  --color-surface: #ffffff;
+  --color-border: #e9d8fd;
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
 
   --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
   --font-mono: var(--font-geist-mono, monospace);
@@ -24,4 +30,44 @@ body {
   background-color: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bar-grow {
+  from {
+    width: 0%;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-bar-grow {
+  animation: bar-grow 0.6s ease-out both;
 }

@@ -2,12 +2,19 @@
 
 import { useEffect, useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { IUser } from '@/models/User'
 import { IPoll } from '@/models/Poll'
 import FullScreenLoading from '@/components/FullScreenLoading'
+import Card from '@/components/Card'
+import PageShell from '@/components/PageShell'
+import EmptyState from '@/components/EmptyState'
+import PrimaryButton from '@/components/PrimaryButton'
+import { FaPoll, FaCalendarAlt } from 'react-icons/fa'
 
 export default function ProfilePage() {
   const { data: session } = useSession()
+  const router = useRouter()
   const [user, setUser] = useState<IUser>()
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(true)
@@ -41,34 +48,44 @@ export default function ProfilePage() {
   if (!user) return <FullScreenLoading isOpen={loading} message="Cargando perfil..." />
 
   return (
-    <div className="max-w-3xl mx-auto p-8 space-y-10">
+    <PageShell className="space-y-10">
       {/* Sección Mis Polls */}
-      <section className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
-        <h1 className="text-3xl font-bold text-[#322A7D] text-center mb-2">Mis Polls</h1>
+      <Card padding="md">
+        <h1 className="text-3xl font-bold text-[var(--color-primary)] text-center mb-4">Mis Polls</h1>
         {polls.length === 0 ? (
-          <p className="text-center text-gray-600">No has creado ninguna encuesta aún.</p>
+          <EmptyState
+            icon={FaPoll}
+            title="No creaste ninguna encuesta aún"
+            description="Armá tu primera encuesta y compartila para empezar a recibir votos."
+            action={
+              <PrimaryButton onClick={() => router.push('/create')}>
+                Crear mi primera encuesta
+              </PrimaryButton>
+            }
+          />
         ) : (
-          <ul className="space-y-4">
+          <ul className="grid sm:grid-cols-2 gap-4">
             {polls.map((poll) => (
               <li
                 key={poll._id?.toString()}
-                className="border border-gray-300 rounded-lg p-4 hover:shadow-md cursor-pointer transition"
+                className="border border-[var(--color-border)] rounded-xl p-4 hover:shadow-md hover:-translate-y-0.5 transition cursor-pointer bg-white"
                 onClick={() => window.location.href = `/polls/${poll._id}/results`}
               >
-                <h3 className="font-semibold text-lg">{poll.title}</h3>
+                <h3 className="font-semibold text-lg text-[var(--color-foreground)]">{poll.title}</h3>
                 <p className="text-gray-600">{poll.subtitle}</p>
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-sm text-gray-500 mt-2 flex items-center gap-1">
+                  <FaCalendarAlt className="w-3 h-3" />
                   Creada el {new Date(poll.createdAt).toLocaleDateString()}
                 </p>
               </li>
             ))}
           </ul>
         )}
-      </section>
+      </Card>
 
       {/* Sección Mis Datos */}
-      <section className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
-        <h1 className="text-3xl font-bold text-[#322A7D] text-center mb-2">Mis Datos</h1>
+      <Card>
+        <h1 className="text-3xl font-bold text-[var(--color-primary)] text-center mb-2">Mis Datos</h1>
         <p className="text-md text-gray-600 text-center mb-6">
           Actualizá tu información personal
         </p>
@@ -80,7 +97,7 @@ export default function ProfilePage() {
               type="text"
               value={user.name}
               readOnly
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#322A7D] focus:outline-none"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:outline-none"
             />
           </div>
 
@@ -90,7 +107,7 @@ export default function ProfilePage() {
               type="email"
               value={user.email}
               readOnly
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#322A7D] focus:outline-none"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:outline-none"
             />
           </div>
 
@@ -101,7 +118,7 @@ export default function ProfilePage() {
               value={phone}
               onChange={handlePhoneChange}
               placeholder="Ingrese su teléfono"
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#322A7D] focus:outline-none"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:outline-none"
             />
           </div>
 
@@ -109,13 +126,13 @@ export default function ProfilePage() {
             <button
               type="button"
               onClick={handleLogout}
-              className="px-6 py-3 text-white font-semibold rounded-lg bg-red-600 hover:bg-red-700 transition"
+              className="px-6 py-3 text-white font-semibold rounded-lg bg-[var(--color-danger)] hover:opacity-90 transition cursor-pointer"
             >
               Cerrar sesión
             </button>
           </div>
         </form>
-      </section>
-    </div>
+      </Card>
+    </PageShell>
   )
 }

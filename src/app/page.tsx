@@ -18,7 +18,7 @@ export default function Home() {
       </Head>
 
       {/* Hero */}
-      <header className="bg-[var(--color-primary)] text-white py-24 px-6 text-center">
+      <header className="bg-[var(--color-primary)] text-white py-24 px-6 text-center animate-fade-in">
         <h1 className="text-5xl font-bold mb-4">Pollify</h1>
         <h2 className="text-xl md:text-2xl h-8 font-medium">
           <Typewriter
@@ -46,7 +46,7 @@ export default function Home() {
 
       <main className="flex-grow bg-[var(--color-background)] px-6 py-16">
         {/* Casos de uso */}
-        <section className="max-w-6xl mx-auto mb-24">
+        <section className="max-w-6xl mx-auto mb-24 animate-fade-in">
           <h2 className="text-3xl font-bold text-center mb-12">
             ¿Para qué puedo usar Pollify?
           </h2>
@@ -83,7 +83,7 @@ export default function Home() {
         </section>
 
         {/* Cómo funciona */}
-        <section className="max-w-5xl mx-auto text-center mb-24">
+        <section className="max-w-5xl mx-auto text-center mb-24 animate-fade-in">
           <h2 className="text-3xl font-bold mb-12">¿Cómo funciona?</h2>
           <div className="flex flex-col md:flex-row gap-10 justify-center items-center">
             {[
@@ -124,7 +124,7 @@ export default function Home() {
         </section>
 
         {/* Por qué usar Pollify */}
-        <section className="bg-white py-16 px-6 rounded-xl shadow-inner">
+        <section className="bg-white py-16 px-6 rounded-xl shadow-inner animate-fade-in">
           <h2 className="text-3xl font-bold text-center mb-12">
             Por qué usar Pollify
           </h2>

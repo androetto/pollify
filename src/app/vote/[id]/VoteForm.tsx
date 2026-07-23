@@ -53,14 +53,14 @@ export default function VoteForm({ poll }: { poll: IPoll }) {
           {q.options.map((opt, oIndex) => (
             <label
               key={oIndex}
-              className="flex items-center mb-2 p-2 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100"
+              className="flex items-center mb-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer transition-colors hover:border-[var(--color-primary-light)] has-[:checked]:border-[var(--color-primary)] has-[:checked]:bg-[var(--color-primary-tint)]"
             >
               <input
                 type="radio"
                 name={`question-${q._id}`}
                 value={opt.text}
                 required
-                className="mr-3 w-5 h-5 text-[#322A7D] focus:ring-[#322A7D]"
+                className="mr-3 w-5 h-5 accent-[var(--color-primary)]"
               />
               <span className="text-gray-800">{opt.text}</span>
             </label>

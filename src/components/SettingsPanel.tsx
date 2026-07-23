@@ -57,11 +57,11 @@ export default function SettingsPanel({
       >
         {/* Header */}
         <div className="p-4 flex justify-between items-center border-b flex-shrink-0">
-          <h2 className="text-xl font-bold text-[#322A7D]">Configuración</h2>
+          <h2 className="text-xl font-bold text-[var(--color-primary)]">Configuración</h2>
           <button
             onClick={onClose}
             aria-label="Cerrar panel"
-            className="text-2xl font-bold hover:text-[#42389D] cursor-pointer"
+            className="text-2xl font-bold hover:text-[var(--color-primary-dark)] cursor-pointer"
           >
             &times;
           </button>
@@ -75,7 +75,7 @@ export default function SettingsPanel({
             <select
               value={configuration.visibility}
               onChange={(e) => handleChange("visibility", e.target.value as IConfiguration["visibility"])}
-              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#322A7D]"
+              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[var(--color-primary)]"
             >
               <option value="public">Pública</option>
               <option value="private">Privada</option>
@@ -88,7 +88,7 @@ export default function SettingsPanel({
             <select
               value={configuration.duration.type}
               onChange={(e) => handleDurationChange("type", e.target.value as "votes" | "date" | "both")}
-              className="w-full p-2 border border-gray-300 rounded mb-2 focus:ring-2 focus:ring-[#322A7D]"
+              className="w-full p-2 border border-gray-300 rounded mb-2 focus:ring-2 focus:ring-[var(--color-primary)]"
             >
               <option value="votes">Por votos</option>
               <option value="date">Por fecha</option>
@@ -111,7 +111,7 @@ export default function SettingsPanel({
                       e.target.value ? Number(e.target.value) : undefined
                     )
                   }
-                  className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#322A7D]"
+                  className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[var(--color-primary)]"
                 />
               </div>
             )}
@@ -137,7 +137,7 @@ export default function SettingsPanel({
                         : undefined
                     )
                   }
-                  className="w-full p-2 border border-gray-300 rounded mb-2 focus:ring-2 focus:ring-[#322A7D]"
+                  className="w-full p-2 border border-gray-300 rounded mb-2 focus:ring-2 focus:ring-[var(--color-primary)]"
                 />
 
                 <label className="block mb-1 text-gray-600 font-medium">
@@ -158,7 +158,7 @@ export default function SettingsPanel({
                         : undefined
                     )
                   }
-                  className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#322A7D]"
+                  className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[var(--color-primary)]"
                 />
               </>
             )}
@@ -170,7 +170,7 @@ export default function SettingsPanel({
             <select
               value={configuration.security}
               onChange={(e) => handleChange("security", e.target.value as IConfiguration["security"])}
-              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#322A7D]"
+              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[var(--color-primary)]"
             >
               <option value="none">Ninguna</option>
               <option value="low">Baja</option>
@@ -194,7 +194,7 @@ export default function SettingsPanel({
                   e.target.value ? Number(e.target.value) : undefined
                 )
               }
-              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#322A7D]"
+              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[var(--color-primary)]"
               placeholder="Ej: 60"
             />
           </section>
@@ -205,7 +205,7 @@ export default function SettingsPanel({
             <select
               value={configuration.monetization.type}
               onChange={(e) => handleMonetizationChange("type", e.target.value as "free" | "pay_per_vote")}
-              className="w-full p-2 border border-gray-300 rounded mb-2 focus:ring-2 focus:ring-[#322A7D]"
+              className="w-full p-2 border border-gray-300 rounded mb-2 focus:ring-2 focus:ring-[var(--color-primary)]"
             >
               <option value="free">Gratis</option>
               <option value="pay_per_vote">Pagar por voto</option>
@@ -227,7 +227,7 @@ export default function SettingsPanel({
                       e.target.value ? Number(e.target.value) : undefined
                     )
                   }
-                  className="w-full p-2 border border-gray-300 rounded mb-2 focus:ring-2 focus:ring-[#322A7D]"
+                  className="w-full p-2 border border-gray-300 rounded mb-2 focus:ring-2 focus:ring-[var(--color-primary)]"
                   placeholder="Ej: 0.50"
                 />
 
@@ -245,7 +245,7 @@ export default function SettingsPanel({
                       e.target.value ? Number(e.target.value) : undefined
                     )
                   }
-                  className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#322A7D]"
+                  className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[var(--color-primary)]"
                   placeholder="Ej: 100"
                 />
               </>
@@ -260,7 +260,7 @@ export default function SettingsPanel({
             <select
               value={configuration.resultVisibility}
               onChange={(e) => handleChange("resultVisibility", e.target.value as IConfiguration["resultVisibility"])}
-              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#322A7D]"
+              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[var(--color-primary)]"
             >
               <option value="public">Públicos</option>
               <option value="private">Privados</option>

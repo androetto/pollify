@@ -21,13 +21,14 @@ export default function PrimaryButton({
       onClick={onClick}
       disabled={disabled}
       className={`
-        px-6 py-3 
-        text-white 
-        font-semibold 
-        rounded-lg 
-        transition 
+        px-6 py-3
+        text-white
+        font-semibold
+        rounded-lg
+        transition
+        active:scale-[0.98]
         cursor-pointer
-        ${disabled ? 'bg-gray-400' : 'bg-[#322A7D] hover:bg-[#42389D]'}
+        ${disabled ? 'bg-gray-400 cursor-not-allowed active:scale-100' : 'bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)]'}
         ${fullWidth ? 'w-full' : ''}
         ${className}
       `}

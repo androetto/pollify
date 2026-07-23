@@ -27,8 +27,8 @@ export default function FullScreenLoading({ isOpen, message = 'Cargando...' }: P
       }`}
     >
       <div className="text-center">
-        <div className="w-16 h-16 border-4 border-[#322A7D] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-        <p className="text-[#322A7D] font-medium">{message}</p>
+        <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-[var(--color-primary)] font-medium">{message}</p>
       </div>
     </div>
   );
